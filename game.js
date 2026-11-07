@@ -163,7 +163,7 @@ function updateMovement(dt){
  state.floor=floor;
  camera.position.set(player.pos.x,floor+playerHeight+state.playerY,player.pos.z);
  camera.rotation.order='YXZ';camera.rotation.y=state.yaw;camera.rotation.x=state.pitch;
- const action=nearestAction();interaction.classList.toggle('visible',Boolean(action)&&state.started&&!state.paused&&!state.modal);$('interaction-label').textContent=interactionText(action);
+ const action=nearestAction();interaction.classList.toggle('show',Boolean(action)&&state.started&&!state.paused&&!state.modal);$('interaction-label').textContent=interactionText(action);
 }
 function emitDebris(){
  for(let i=0;i<particles.length;i++){const p=particles[i];if(p.life>0)continue;p.life=.55+Math.random()*.7;p.mesh.visible=true;p.mesh.position.set((Math.random()-.5)*1.6,.5+Math.random()*1.5,-1+(Math.random()-.5)*1.5);p.vel.set((Math.random()-.5)*1.8,1+Math.random()*2,(Math.random()-.5)*1.8);break;}
@@ -191,7 +191,7 @@ function updateAnimations(dt){
  for(const p of particles)if(p.life>0)p.mesh.material.opacity=Math.min(1,p.life*1.5);
  if(state.toastTimer>0){state.toastTimer-=dt;if(state.toastTimer<=0)$('toast').classList.remove('show');}
 }
-function tick(){requestAnimationFrame(tick);const dt=Math.min(clock.getDelta(),.05);if(state.started&&!state.paused&&!state.modal){updateMovement(dt);updateDrilling(dt);}else if(state.started){camera.position.set(player.pos.x,(state.floor||0)+playerHeight+state.playerY,player.pos.z);camera.rotation.order='YXZ';camera.rotation.y=state.yaw;camera.rotation.x=state.pitch;}
+function tick(){requestAnimationFrame(tick);const dt=Math.min(clock.getDelta(),.1);if(state.started&&!state.paused&&!state.modal){updateMovement(dt);updateDrilling(dt);}else if(state.started){camera.position.set(player.pos.x,(state.floor||0)+playerHeight+state.playerY,player.pos.z);camera.rotation.order='YXZ';camera.rotation.y=state.yaw;camera.rotation.x=state.pitch;}
  updateAnimations(dt);updateParticles(dt);
  if(state.running&&Math.floor(state.animTime*4)!==Math.floor((state.animTime-dt)*4))updateHUD();
  renderer.render(scene,camera);
