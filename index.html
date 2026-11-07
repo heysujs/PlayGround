@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#101a20">
+  <title>BIG CRACK LAB — Frontier Drilling Division</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game-shell">
+    <header class="topbar">
+      <div class="brand"><div class="brand-mark"><span></span><span></span><span></span></div><div><b>BIG CRACK <i>LAB</i></b><small>FRONTIER DRILLING DIVISION</small></div></div>
+      <div class="top-status"><div class="live-pill"><span class="pulse"></span> FIELD SYSTEMS ONLINE</div><div class="clock"><span class="sun-icon" id="weather-icon">☀</span><span id="clock-text">DAY 01 · 08:00</span></div></div>
+      <button class="icon-btn sound-btn" id="sound-toggle" title="Toggle ambience">♫<span class="sound-label">SOUND</span></button>
+    </header>
+    <section class="game-layout">
+      <div class="world-wrap">
+        <canvas id="world" aria-label="Interactive research facility"></canvas>
+        <div class="world-vignette"></div>
+        <div class="world-label"><span class="loc-dot"></span><div><b id="location-name">NORTH FIELD COMPLEX</b><small id="location-sub">REMOTE RESEARCH ZONE · 64°N 147°W</small></div></div>
+        <div class="objective-card"><div class="objective-icon">⌖</div><div><small>PRIMARY DIRECTIVE</small><b id="objective-text">Get the drilling operation online</b><span id="objective-sub">Head to the rig and check its controls</span></div></div>
+        <div class="weather-chip"><span>◌</span> CLEAR <i>·</i> WIND 04 m/s</div>
+        <button class="map-toggle" id="map-toggle" title="Toggle map">⌗</button>
+        <div class="map-panel" id="map-panel"><div class="map-title">SITE PLAN <small>BL-07</small></div><div class="map-art"><span class="map-road"></span><i class="map-building lab-pin">L</i><i class="map-building rig-pin">R</i><i class="map-building oil-pin">O</i><i class="map-player" id="map-player"></i></div><div class="map-legend"><span><i class="legend-player"></i> YOU</span><span><i class="legend-site"></i> FACILITY</span></div></div>
+        <div class="interact-hint" id="interact-hint"><span class="keycap">E</span><span id="interact-label">INTERACT</span></div>
+        <div class="toast" id="toast"></div>
+        <div class="mobile-controls"><div class="joystick" id="joystick"><div class="joy-knob" id="joy-knob"></div></div><div class="mobile-actions"><button id="mobile-use" class="action-circle">E</button><button id="mobile-run" class="action-circle">↗</button></div></div>
+      </div>
+      <aside class="sidebar">
+        <div class="resource-row"><div class="money-card"><div class="card-head"><span>AVAILABLE FUNDS</span><span class="tiny-tag">USD</span></div><div class="money-value"><span class="currency">$</span><b id="money">1,250</b><span class="money-gain">↗ <i id="income">+12</i>/5s</span></div><div class="funds-bar"><span></span></div></div></div>
+        <div class="section-heading"><span>OPERATIONS</span><i></i><small>LIVE TELEMETRY</small></div>
+        <div class="metric-card"><div class="metric-top"><div class="metric-icon depth-icon">↧</div><div><small>BORE DEPTH</small><b><span id="depth">0</span><em> m</em></b></div><span class="metric-state" id="layer-chip">CRUST</span></div><div class="progress-track"><i id="depth-progress"></i></div><div class="metric-foot"><span id="layer-name">Earth's crust</span><span id="layer-progress">0.0%</span></div></div>
+        <div class="metric-card"><div class="metric-top"><div class="metric-icon oil-icon">◉</div><div><small>OIL RESERVE</small><b><span id="oil">60</span><em> sec</em></b></div><span class="metric-state good" id="oil-status">STABLE</span></div><div class="progress-track oil-track"><i id="oil-progress"></i></div><div class="metric-foot"><span id="oil-type">Basic oil</span><span>REMAINING</span></div></div>
+        <div class="metric-card"><div class="metric-top"><div class="metric-icon machine-icon">⚙</div><div><small>RIG INTEGRITY</small><b><span id="condition">100</span><em>%</em></b></div><span class="metric-state good" id="rig-status">NOMINAL</span></div><div class="progress-track condition-track"><i id="condition-progress"></i></div><div class="metric-foot"><span>RIG-01 · KOLA SERIES</span><span id="rig-power">POWERED</span></div></div>
+        <div class="rig-control"><div><div class="rig-title"><span class="control-led" id="rig-led"></span> DRILL CONTROL</div><small id="rig-control-sub">Rig is idle · systems ready</small></div><button id="drill-toggle" class="drill-button"><span>▶</span> START RIG</button></div>
+        <div class="section-heading quick-heading"><span>QUICK ACCESS</span><i></i></div>
+        <div class="quick-grid"><button class="quick-card" id="shop-button"><span class="quick-icon shop-icon">⌂</span><span><b>SUPPLY DEPOT</b><small>Oil & equipment</small></span><span class="arrow">↗</span></button><button class="quick-card" id="upgrade-button"><span class="quick-icon upgrade-icon">⌁</span><span><b>RESEARCH LAB</b><small>Upgrade technology</small></span><span class="arrow">↗</span></button><button class="quick-card" id="camera-button"><span class="quick-icon camera-icon">▣</span><span><b>SECURITY FEED</b><small>6 cameras · live</small></span><span class="arrow">↗</span></button></div>
+        <div class="sidebar-bottom"><span><i class="online-dot"></i> ALL SYSTEMS NOMINAL</span><small>AUTOSAVE ON</small></div>
+      </aside>
+    </section>
+    <footer class="bottom-bar"><div class="control-legend"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> MOVE</span><span><kbd>E</kbd> INTERACT</span><span><kbd>SHIFT</kbd> SPRINT</span><span class="mouse-help">MOUSE / DRAG CAMERA</span></div><div class="footer-right"><span id="save-state">● PROGRESS SAVED</span><span>BUILD <b>0.8.4</b></span></div></footer>
+  </main>
+  <div class="modal-backdrop" id="modal-backdrop"><section class="modal" id="modal" role="dialog" aria-modal="true"></section></div>
+  <script src="game.js"></script>
+</body>
+</html>
