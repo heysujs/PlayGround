@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#090c10">
+  <title>CORE//BOUND — Drill to the Heart of the Earth</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <canvas id="game" aria-label="First-person mining game"></canvas>
+    <div class="screen-fx" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+
+    <div id="hud" class="hidden">
+      <header class="hud-top">
+        <div class="brand-block">
+          <div class="brand-mark"><span></span><span></span><span></span></div>
+          <div>
+            <div class="brand-name">CORE<span>//</span>BOUND</div>
+            <div class="brand-sub">DEEP BORE DIVISION · SITE 07</div>
+          </div>
+        </div>
+
+        <div class="depth-panel glass">
+          <div class="depth-head">
+            <span class="eyebrow">CURRENT DEPTH</span>
+            <span id="biomeTag" class="biome-tag">CRUST</span>
+          </div>
+          <div class="depth-number"><span id="depthValue">0.0</span><small>KM</small></div>
+          <div class="depth-track">
+            <div class="depth-fill" id="depthFill"></div>
+            <div class="depth-core"></div>
+            <span class="depth-marker" style="left:0.55%"></span>
+            <span class="depth-marker" style="left:45.36%"></span>
+            <span class="depth-marker" style="left:80.84%"></span>
+          </div>
+          <div class="depth-scale"><span>0</span><span>MANTLE</span><span>OUTER CORE</span><span>6,371</span></div>
+        </div>
+
+        <div class="cash-panel glass">
+          <div class="cash-label">CREDITS</div>
+          <div class="cash-value" id="cashValue">$1,000</div>
+          <div class="cash-rate" id="cashRate">+$0 / SEC</div>
+        </div>
+      </header>
+
+      <aside class="mission-panel glass">
+        <div class="panel-kicker">ACTIVE DIRECTIVE</div>
+        <div class="mission-title" id="missionTitle">LOAD THE RIG</div>
+        <div class="mission-copy" id="missionCopy">Carry a barrel to the mining rig's top reservoir.</div>
+        <div class="mission-rule"></div>
+        <div class="mission-meta"><span id="missionMeta">DEPTH 0 / 6,371 KM</span><span id="missionPct">0%</span></div>
+      </aside>
+
+      <aside class="oil-panel glass">
+        <div class="oil-head">
+          <div>
+            <div class="panel-kicker">RIG RESERVOIR</div>
+            <div class="oil-time" id="oilTime">DRY</div>
+          </div>
+          <div class="oil-icon">◈</div>
+        </div>
+        <div class="oil-track"><div class="oil-fill" id="oilFill"></div></div>
+        <div class="oil-foot">
+          <span id="rigStatus" class="status idle"><i></i>IDLE</span>
+          <span id="oilInventory">0 BARRELS</span>
+        </div>
+        <div class="oil-max" id="oilMax">CAPACITY 1 BARREL</div>
+      </aside>
+
+      <div class="reticle" id="reticle" aria-hidden="true"><i></i><i></i><b></b></div>
+      <div class="interact-prompt" id="interactPrompt">
+        <span class="key">E</span>
+        <span id="interactText">Interact</span>
+      </div>
+
+      <div class="bottom-left">
+        <div class="minimap-wrap glass">
+          <canvas id="minimap" width="148" height="148"></canvas>
+          <div class="minimap-label" id="mapZone">SITE 07 · SURFACE</div>
+        </div>
+        <div class="control-hint glass">
+          <span><b>WASD</b> MOVE</span>
+          <span><b>SHIFT</b> SPRINT</span>
+          <span><b>MOUSE</b> LOOK</span>
+          <span><b>E</b> USE</span>
+        </div>
+      </div>
+
+      <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+      <div class="waypoint-layer" id="waypointLayer">
+        <div class="waypoint wp-lab" data-wp="lab"><span class="wp-icon">⌬</span><span class="wp-name">CORE LAB</span><span class="wp-dist"></span></div>
+        <div class="waypoint wp-shop" data-wp="shop"><span class="wp-icon">▣</span><span class="wp-name">OIL DEPOT</span><span class="wp-dist"></span></div>
+        <div class="waypoint wp-rig" data-wp="rig"><span class="wp-icon">▲</span><span class="wp-name">BORE RIG</span><span class="wp-dist"></span></div>
+      </div>
+
+      <div class="click-look" id="clickLook">CLICK TO CAPTURE MOUSE</div>
+
+      <div class="touch-ui" id="touchUI">
+        <div class="joystick" id="joystick"><div class="stick" id="stick"></div></div>
+        <button class="touch-use" id="touchUse" aria-label="Use">USE</button>
+        <button class="touch-sprint" id="touchSprint" aria-label="Sprint">RUN</button>
+      </div>
+
+      <button class="sound-toggle" id="soundToggle" aria-label="Toggle sound">SOUND ON</button>
+    </div>
+
+    <section id="intro" class="overlay intro">
+      <div class="intro-grid" aria-hidden="true"></div>
+      <div class="intro-content">
+        <div class="intro-eyebrow"><span class="pulse-dot"></span> EARTH CRUST · 42.7° N, 109.3° W</div>
+        <h1>CORE<span>//</span>BOUND</h1>
+        <div class="intro-tagline">THE PLANET IS 6,371 KILOMETERS DEEP.<br>YOU HAVE ONE VERY GOOD DRILL.</div>
+        <p class="intro-copy">Run a one-rig mining operation on the edge of the Wyoming badlands. Keep the reservoir wet, sink the bore, reinvest at the lab, and reach the molten heart of the Earth.</p>
+        <div class="intro-actions">
+          <button id="startBtn" class="btn-primary">Start</button>
+          <div class="intro-hint">WASD + MOUSE · E TO INTERACT</div>
+        </div>
+        <div class="intro-features">
+          <div><b>01</b><span>Buy oil at the depot</span></div>
+          <div><b>02</b><span>Upgrade at the core lab</span></div>
+          <div><b>03</b><span>Drill 6,371 km</span></div>
+        </div>
+      </div>
+      <div class="intro-credit">SITE 07 · BORE-01 · SHIFT START 05:40</div>
+    </section>
+
+    <div id="modal" class="overlay modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-card" id="modalCard"></div>
+    </div>
+
+    <section id="victory" class="overlay victory hidden">
+      <div class="core-glow" aria-hidden="true"></div>
+      <div class="victory-card">
+        <div class="victory-kicker">BORE-01 · FINAL TELEMETRY</div>
+        <h2>YOU REACHED<br><span>THE CORE.</span></h2>
+        <p>6,371 kilometers of rock, mantle, and molten metal. The drill is gone. The planet is still very much awake.</p>
+        <div class="victory-stats">
+          <div><span>TIME</span><b id="victoryTime">00:00</b></div>
+          <div><span>EARNED</span><b id="victoryEarned">$0</b></div>
+          <div><span>BARRELS</span><b id="victoryBarrels">0</b></div>
+          <div><span>UPGRADES</span><b id="victoryUpgrades">0</b></div>
+        </div>
+        <button id="againBtn" class="btn-primary">Drill Again</button>
+      </div>
+    </section>
+
+    <div id="fade" class="fade" aria-hidden="true"></div>
+  </div>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
