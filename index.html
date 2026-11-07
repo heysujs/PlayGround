@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#87ceeb" />
+  <meta name="description" content="A tiny Minecraft-inspired 3D voxel sandbox you can play in your browser." />
+  <title>Minecraft 3D — voxel sandbox</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./ui.css" />
+</head>
+<body>
+  <canvas id="game"></canvas>
+  <div id="waterTint"></div>
+  <div id="vignette"></div>
+
+  <div id="hud" class="hidden">
+    <div id="hudTop">
+      <div id="brandMini">MINE<span>CRAFT</span> <em>3D</em></div>
+      <div id="stats"><b id="fps">60</b> FPS <i></i> <span id="chunkCount">0</span> chunks</div>
+      <div id="coords">0 / 64 / 0</div>
+      <div id="clock"><span id="clockIcon">☀</span> <span id="clockTime">08:30</span></div>
+    </div>
+
+    <div id="crosshair">
+      <div id="ring"></div>
+      <i class="ch h"></i><i class="ch v"></i>
+    </div>
+
+    <div id="hoverName"></div>
+
+    <div id="hintbar">
+      <span><kbd>WASD</kbd> move</span>
+      <span><kbd>SPACE</kbd> jump</span>
+      <span><kbd>SHIFT</kbd> sprint</span>
+      <span><kbd>LMB</kbd> mine</span>
+      <span><kbd>RMB</kbd> place</span>
+      <span><kbd>E</kbd> blocks</span>
+      <span><kbd>F</kbd> fly</span>
+      <span><kbd>ESC</kbd> menu</span>
+    </div>
+
+    <div id="hotbarWrap">
+      <div id="itemName">&nbsp;</div>
+      <div id="hotbar"></div>
+    </div>
+
+    <div id="topBtns">
+      <button class="iconBtn" data-act="inventory" title="Block palette" aria-label="Block palette">▤</button>
+      <button class="iconBtn" data-act="sound" title="Toggle sound" aria-label="Toggle sound">♪</button>
+      <button class="iconBtn" data-act="menu" title="Menu" aria-label="Menu">☰</button>
+    </div>
+
+    <div id="mobile" class="hidden">
+      <div id="stick"><div id="stickKnob"></div></div>
+      <div id="mButtons">
+        <button id="mJump" class="mBtn" aria-label="Jump">▲</button>
+        <button id="mFly" class="mBtn small" aria-label="Fly">✈</button>
+        <button id="mBreak" class="mBtn round" aria-label="Mine">⛏</button>
+        <button id="mPlace" class="mBtn round place" aria-label="Place block">▣</button>
+        <button id="mBag" class="mBtn small bag" aria-label="Blocks">▤</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="loading" class="overlay show">
+    <div class="loadPanel">
+      <div class="loadTitle">MINE<span>CRAFT</span> <em>3D</em></div>
+      <div class="loadBar"><div id="loadFill"></div></div>
+      <div id="loadText">Generating terrain…</div>
+    </div>
+  </div>
+
+  <div id="menu" class="overlay">
+    <div class="titleWrap">
+      <div class="logo">MINECRAFT</div>
+      <div class="logoSub"><b>3</b>D VOXEL SANDBOX</div>
+      <p class="tagline">A whole world in blocks. Mine it, build it, get lost in it.</p>
+      <button id="play" class="bigBtn play"><span class="playArrow">▶</span> PLAY</button>
+      <div class="meta">
+        <span>SEED <b id="seedLbl">—</b></span>
+        <span id="worldInfo">— chunks</span>
+      </div>
+      <div class="controlsMini">
+        <div><kbd>WASD</kbd><span>move</span></div>
+        <div><kbd>SPACE</kbd><span>jump / swim</span></div>
+        <div><kbd>LMB</kbd><span>mine</span></div>
+        <div><kbd>RMB</kbd><span>place</span></div>
+        <div><kbd>E</kbd><span>block palette</span></div>
+        <div><kbd>F</kbd><span>fly</span></div>
+      </div>
+      <div class="foot">A fan-made tribute · not affiliated with Mojang or Microsoft</div>
+    </div>
+  </div>
+
+  <div id="pause" class="overlay panelOverlay">
+    <div class="panel">
+      <div class="panelHead"><h2>Paused</h2><span class="tag">singleplayer</span></div>
+      <button class="bigBtn" data-act="resume">Back to game</button>
+      <div class="btnRow">
+        <button class="ghostBtn" data-act="inventory">Block palette</button>
+        <button class="ghostBtn" data-act="sound">Sound: on</button>
+      </div>
+      <div class="btnRow">
+        <button class="ghostBtn" data-act="newworld">New world</button>
+        <button class="ghostBtn" data-act="reset">Reset edits</button>
+      </div>
+      <div class="controlsList">
+        <div><kbd>W A S D</kbd><span>Walk</span></div>
+        <div><kbd>Space</kbd><span>Jump / swim up</span></div>
+        <div><kbd>Shift</kbd><span>Sprint (fly: faster)</span></div>
+        <div><kbd>F</kbd><span>Toggle flight</span></div>
+        <div><kbd>1–9 / wheel</kbd><span>Select block</span></div>
+        <div><kbd>LMB / hold</kbd><span>Mine block</span></div>
+        <div><kbd>RMB</kbd><span>Place block</span></div>
+        <div><kbd>MMB</kbd><span>Pick block</span></div>
+        <div><kbd>E</kbd><span>Block palette</span></div>
+        <div><kbd>T</kbd><span>Skip time</span></div>
+        <div><kbd>M</kbd><span>Mute sound</span></div>
+        <div><kbd>F3</kbd><span>Debug info</span></div>
+      </div>
+      <div class="saveNote" id="saveNote">World edits save automatically in this browser.</div>
+    </div>
+  </div>
+
+  <div id="inventory" class="overlay panelOverlay">
+    <div class="panel wide">
+      <div class="panelHead">
+        <h2>Block palette</h2>
+        <button class="iconBtn" data-act="closeInventory" aria-label="Close">✕</button>
+      </div>
+      <p class="paletteHint">Pick a block for hotbar slot <b id="slotLabel">1</b>.</p>
+      <div id="palette"></div>
+      <div class="panelFoot">Tip: press <kbd>E</kbd> any time. Middle-click a block in the world to pick it.</div>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
