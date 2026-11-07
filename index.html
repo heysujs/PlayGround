@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no" />
+  <meta name="theme-color" content="#101a19" />
+  <title>BIG CRACK LAB — Frontier Drilling</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main id="game-shell" aria-label="BIG CRACK LAB game">
+    <canvas id="world" aria-label="Game world"></canvas>
+    <div class="vignette"></div>
+    <header class="topbar">
+      <div class="brand"><div class="brand-mark"><span></span><span></span><span></span></div><div><strong>BIG CRACK <i>LAB</i></strong><small>FRONTIER DRILLING · SECTOR 04</small></div></div>
+      <div class="top-stats">
+        <div class="stat cash"><span class="stat-icon">＄</span><div><small>OPERATING FUNDS</small><strong id="money">$420</strong></div><b class="earn-tag">+5 / 5s</b></div>
+        <div class="stat oil"><span class="stat-icon">◉</span><div><small>DRILL OIL</small><strong id="oil-value">01:00</strong></div><div class="oil-meter"><i id="oil-meter"></i></div></div>
+        <div class="stat depth"><span class="stat-icon">↧</span><div><small>BORE DEPTH</small><strong id="depth">0 <em>m</em></strong></div></div>
+      </div>
+      <button class="icon-btn settings-btn" id="sound-btn" title="Toggle sound">♫</button>
+    </header>
+    <div class="left-rail">
+      <div class="objective-card"><div class="eyebrow"><span class="live-dot"></span> FIELD DIRECTIVE</div><strong id="objective">Bring the rig online</strong><small id="objective-sub">Head to the drilling controls</small></div>
+      <div class="weather-card"><div class="weather-icon" id="weather-icon">☀</div><div><small id="clock">14:32</small><strong id="weather-name">CLEAR SKIES</strong></div><div class="sun-path"><i></i></div></div>
+    </div>
+    <div class="right-rail">
+      <div class="mini-map"><div class="map-heading"><span>SECTOR MAP</span><i>04 / 09</i></div><div class="map-inner"><div class="map-road map-road-a"></div><div class="map-road map-road-b"></div><span class="map-node lab-node">L</span><span class="map-node rig-node">R</span><span class="map-node oil-node">O</span><span class="map-node sec-node">C</span><span class="map-player" id="map-player"></span><span class="map-north">N ↑</span></div><div class="map-legend"><span><i class="legend-you"></i>YOU</span><span><i class="legend-site"></i>SITE</span></div></div>
+      <div class="rig-card"><div class="rig-card-head"><span class="status-pulse"></span><small>DRILL STATUS</small><b id="rig-state">STANDBY</b></div><div class="condition-line"><span>CONDITION</span><strong id="condition">100%</strong></div><div class="condition-track"><i id="condition-fill"></i></div><div class="rig-progress"><div><span>CORE SAMPLE</span><b id="progress-label">0%</b></div><div class="progress-track"><i id="progress-fill"></i></div></div></div>
+    </div>
+    <div class="interaction" id="interaction"><span class="interact-key" id="interact-key">E</span><div><strong id="interact-title">INTERACT</strong><small id="interact-sub">Open the laboratory</small></div><span class="interact-arrow">↗</span></div>
+    <div class="toast" id="toast"><span class="toast-mark">!</span><span id="toast-text">System message</span></div>
+    <div class="bottom-hud"><div class="control-hint"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><span>MOVE</span><i></i><kbd>E</kbd><span>INTERACT</span></div><div class="site-label" id="site-label"><span class="site-line"></span><span id="site-name">FIELD CAMP · OUTER YARD</span></div><button class="map-toggle" id="help-btn"><span>?</span> FIELD GUIDE</button></div>
+    <div class="touch-controls" id="touch-controls"><div class="joystick" id="joystick"><div class="joy-ring"><i></i></div><div class="joy-knob" id="joy-knob"></div></div><div class="touch-actions"><button id="touch-interact" aria-label="Interact"><span>↗</span><small>USE</small></button><button id="touch-camera" aria-label="Rotate camera"><span>⟳</span><small>VIEW</small></button></div></div>
+    <div class="modal-backdrop" id="modal-backdrop"><section class="modal" id="modal" role="dialog" aria-modal="true"><button class="modal-close" id="modal-close">×</button><div id="modal-content"></div></section></div>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
