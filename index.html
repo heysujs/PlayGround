@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#101916" />
+  <title>Earth Core Miner — Deep Operations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="game-root">
+    <canvas id="scene"></canvas>
+    <div class="vignette"></div>
+    <header class="topbar">
+      <div class="brand"><div class="brand-mark"><span></span><span></span><span></span></div><div><b>CORE<span>LINE</span></b><small>EARTH CORE MINING CO.</small></div></div>
+      <div class="site-tag"><i></i><span>FIELD SITE 07</span><em>·</em><span>NEVADA, USA</span></div>
+      <div class="top-right"><span class="weather-icon">☀</span><span>DRY / 28°C</span><span class="divider"></span><span class="clock" id="clock">08:42 AM</span></div>
+    </header>
+    <section class="hud-left">
+      <div class="depth-card panel"><div class="eyebrow"><span class="pulse-dot"></span> LIVE BORE TELEMETRY</div><div class="depth-line"><strong id="depth">0</strong><span>m</span></div><div class="layer-row"><span class="layer-chip" id="layer-chip">01</span><div><small>CURRENT STRATUM</small><b id="layer-name">Surface Soil</b></div></div><div class="depth-track"><div id="depth-fill"></div><span></span></div><div class="depth-foot"><span>EARTH CORE</span><span id="depth-percent">0.0%</span></div></div>
+      <div class="status-card panel"><div class="status-heading"><span>RIG STATUS</span><span class="status-light" id="status-light"></span></div><div class="status-main"><div class="status-symbol" id="status-symbol">Ⅱ</div><div><b id="rig-status">STANDBY</b><small id="rig-detail">Awaiting start command</small></div></div><div class="mini-separator"></div><div class="resource-line"><span>DRILL POWER</span><b id="power-stat">01 <i>LVL</i></b></div><div class="resource-line"><span>DRILL SPEED</span><b id="speed-stat">01 <i>LVL</i></b></div></div>
+    </section>
+    <section class="hud-right">
+      <div class="money-card panel"><div class="eyebrow">OPERATIONS FUNDS</div><div class="money-line"><span class="currency">$</span><b id="money">1,250</b><span class="fund-change" id="fund-change"></span></div><div class="money-rule"><i></i></div><small>FIELD ACCOUNT · USD</small></div>
+      <div class="oil-card panel"><div class="oil-title"><div><div class="eyebrow">LUBRICANT RESERVE</div><b>Rig oil</b></div><span class="oil-pict">◉</span></div><div class="oil-gauge"><div class="oil-gauge-fill" id="oil-fill"></div><span></span></div><div class="oil-values"><b><span id="oil-current">0</span><small> L</small></b><span> / <span id="oil-max">100</span> L</span><span class="oil-state" id="oil-state">EMPTY</span></div><div class="oil-foot">CONSUMPTION <b id="oil-rate">0.8 L / MIN</b></div></div>
+      <div class="objective-card panel"><div class="objective-icon">⌖</div><div><small>ACTIVE OBJECTIVE</small><b id="objective">Inspect the rig</b><span id="objective-sub">Head to the drill control panel</span></div><div class="objective-arrow">↗</div></div>
+    </section>
+    <div class="crosshair"><i></i><i></i></div>
+    <div class="interaction" id="interaction"><kbd>E</kbd><span id="interaction-label">INTERACT</span></div>
+    <div class="hint" id="hint"><kbd>W A S D</kbd> MOVE <span>·</span> <kbd>SHIFT</kbd> SPRINT <span>·</span> <kbd>SPACE</kbd> JUMP <span>·</span> <kbd>MOUSE</kbd> LOOK</div>
+    <div class="bottom-left"><span class="radio-dot"></span><span id="radio-message">FIELD RADIO · Systems nominal.</span></div>
+    <div class="bottom-right"><span>BUILD 0.9.4</span><span class="divider"></span><span>DEPTH UNIT: METERS</span></div>
+    <div id="modal-layer" class="modal-layer hidden">
+      <div class="modal-backdrop"></div><article class="modal panel" id="modal-content"></article>
+    </div>
+    <div id="toast" class="toast"></div>
+    <section id="welcome" class="welcome">
+      <div class="welcome-top"><div class="welcome-logo">CORE<span>LINE</span></div><span class="welcome-tag">FIELD OPERATIONS SIMULATOR</span></div>
+      <div class="welcome-content"><div class="welcome-kicker"><span></span> MISSION BRIEFING / 01</div><h1>THE DEEP<br><em>IS WAITING.</em></h1><p>One drill. Twelve geological frontiers. A journey to the center of the Earth begins at your feet.</p><div class="mission-stats"><div><small>DESTINATION</small><b>6,371 <i>KM</i></b></div><div><small>KNOWN STRATA</small><b>12 <i>LAYERS</i></b></div><div><small>YOUR ACCOUNT</small><b>$1,250 <i>USD</i></b></div></div><button id="start-button" class="primary-button">BEGIN SHIFT <span>→</span></button><div class="welcome-controls"><span>WASD MOVE</span><span>MOUSE LOOK</span><span>E INTERACT</span></div></div>
+      <div class="welcome-footer"><span>CORELINE INDUSTRIES</span><span>DRILL DEEP. GO FURTHER.</span></div>
+    </section>
+    <div class="pause-state hidden" id="pause-state"><div>SHIFT PAUSED</div><small>CLICK TO RETURN TO THE FIELD</small></div>
+  </div>
+  <script type="module" src="game.js"></script>
+</body>
+</html>
