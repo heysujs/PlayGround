@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="theme-color" content="#101a20" />
+  <title>Earth Core — Deep Drilling Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="game-root"></div>
+  <div id="hud">
+    <header class="topbar">
+      <div class="brand"><div class="brand-mark">EC<span>↘</span></div><div><b>EARTH CORE</b><small>DEEP DRILLING DIVISION</small></div></div>
+      <div class="mission"><span class="live-dot"></span><span id="status-label">SITE ONLINE</span><i></i><span id="weather-label">CLEAR · 14°C</span></div>
+      <button class="icon-btn" id="inventory-button" aria-label="Open inventory">▤ <span>INVENTORY</span></button>
+    </header>
+    <section class="readouts">
+      <div class="readout depth-card"><span class="eyebrow">BORE DEPTH</span><div><strong id="depth">000.0</strong><small>m</small></div><span class="layer-line"><i></i><span id="layer">SURFACE SOIL</span></span></div>
+      <div class="readout"><span class="eyebrow">OPERATING STATUS</span><div class="status-row"><i id="drill-light"></i><strong id="drill-status">STANDBY</strong></div><span class="muted" id="status-detail">Rig control panel · Offline</span></div>
+      <div class="readout"><span class="eyebrow">LUBRICANT</span><div class="barline"><strong id="oil-value">68%</strong><span class="bar"><i id="oil-bar"></i></span></div><span class="muted" id="oil-detail">Hydraulic oil · Ready</span></div>
+      <div class="readout"><span class="eyebrow">CORE TEMP.</span><div><strong id="temp">18</strong><small>°C</small></div><span class="muted">Downhole sensor</span></div>
+      <div class="readout cash-card"><span class="eyebrow">CREDITS</span><div><small>$</small><strong id="money">1,250</strong></div><span class="muted">Research account</span></div>
+    </section>
+    <div class="center-message" id="toast"></div>
+    <div class="crosshair"><i></i><i></i></div>
+    <div id="prompt" class="prompt"><span class="key">E</span><span id="prompt-text">INTERACT</span></div>
+    <div class="objective"><div class="objective-icon">⌁</div><div><span class="eyebrow">CURRENT OBJECTIVE</span><strong id="objective-text">Inspect the drilling rig</strong><small id="objective-hint">Walk to the control station</small></div></div>
+    <div class="controls-hint"><span>WASD</span> MOVE <i>·</i> <span>MOUSE</span> LOOK <i>·</i> <span>E</span> INTERACT <i>·</i> <span>SHIFT</span> SPRINT</div>
+    <button class="sound-toggle" id="sound-button">♫ <span>SOUND ON</span></button>
+    <div id="mobile-controls"><div id="joystick"><div id="joy-knob"></div></div><div class="mobile-actions"><button id="mobile-jump">JUMP</button><button id="mobile-run">RUN</button><button id="mobile-use">USE</button></div></div>
+  </div>
+  <div class="modal-backdrop" id="modal-backdrop"><section class="modal" id="modal" role="dialog" aria-modal="true"></section></div>
+  <div id="milestone" class="milestone"><div class="milestone-ring">✦</div><div><span>RESEARCH MILESTONE</span><strong id="milestone-title">FIRST CONTACT</strong><p id="milestone-copy">A new layer has been logged.</p></div><b id="milestone-reward">+$250</b></div>
+  <div class="intro" id="intro"><div class="intro-card"><div class="intro-symbol">EC<span>↘</span></div><span class="eyebrow">FIELD OPERATIONS · 07:42</span><h1>Earth's next<br><em>great frontier.</em></h1><p>Operate the K-9 deep bore rig, read the geology, and push beyond the known crust. Every meter is earned on site.</p><div class="intro-meta"><span>01 <b>WALK THE SITE</b></span><span>02 <b>FUEL THE RIG</b></span><span>03 <b>GO DEEPER</b></span></div><button id="begin-button">ENTER THE FACILITY <span>→</span></button><small>WASD + mouse to explore · Press E to interact · Progress autosaves</small></div></div>
+  <script type="module" src="game.js"></script>
+</body>
+</html>
