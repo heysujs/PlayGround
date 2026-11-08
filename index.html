@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="theme-color" content="#101510" />
+  <title>Earthcore — Deep Shift</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <main id="game"><canvas id="scene"></canvas>
+    <div class="grain"></div>
+    <section id="splash" class="splash">
+      <div class="splash-nav"><span class="brand-mark">E<span>•</span></span><span class="nav-title">FIELD OPERATIONS <i> / </i> 07</span><span class="nav-right">NORTH DAKOTA, USA <b>● LIVE</b></span></div>
+      <div class="splash-content"><div class="eyebrow"><span class="pulse"></span> FRONTIER DEEP-CORE PROGRAM</div><h1>THE<br><em>LONG</em><br>DESCENT.</h1><p class="hero-copy">One rig. Twelve geological layers.<br>A long way down.</p><button id="start" class="start-button"><span>BEGIN YOUR SHIFT</span><b>↗</b></button><div class="start-hint">FIRST-PERSON SIMULATION <span>·</span> 8–12 MIN</div></div>
+      <div class="splash-bottom"><span>EARTHCORE INDUSTRIES</span><span>MISSION 001 — REACH THE INNER CORE</span><span>36°11′N&nbsp; 115°08′W</span></div>
+      <div class="hero-coordinate">39° 02' 12.4" N<br>100° 55' 48.1" W</div>
+    </section>
+    <section id="hud" class="hud hidden">
+      <div class="hud-top"><div class="brand-small">E<span>•</span> EARTHCORE <i>/</i> DEEP SHIFT</div><div class="day-tag"><span class="pulse"></span> DAY 01 <b>06:42 AM</b></div></div>
+      <div class="left-panel glass"><div class="label">CURRENT DEPTH</div><div class="depth-line"><strong id="depth">0</strong><span>m</span></div><div class="layer-row"><span class="layer-dot"></span><span id="layer">SURFACE SOIL</span><span id="layer-index">01 / 12</span></div><div class="depth-track"><div id="depth-fill"></div><i></i></div><div class="depth-foot"><span>EARTH'S CORE</span><span id="progress">0.0%</span></div></div>
+      <div class="right-panel"><div class="money-card glass"><span class="coin">$</span><div><div class="label">AVAILABLE FUNDS</div><strong id="money">$ 420</strong></div><span class="plus">+</span></div><div class="rig-card glass"><div class="rig-head"><span class="rig-icon">◈</span><span class="label">DRILL RIG <i>№ 01</i></span><span id="status" class="status stopped">STANDBY</span></div><div class="oil-info"><span>HYDRAULIC OIL</span><b id="oil-count">72 <small>/ 100 L</small></b></div><div class="oil-track"><div id="oil-fill"></div></div><div class="rig-foot"><span id="drill-speed">DRILL POWER <b>01</b></span><span id="rig-state">AWAITING INPUT</span></div></div></div>
+      <div class="center-readout"><div class="reticle"></div><div id="prompt" class="prompt hidden"><kbd>E</kbd><span>INTERACT</span></div></div>
+      <div class="bottom-left"><div class="compass glass"><span>N</span><b>◉</b><span id="heading">NE</span></div><div class="objective glass"><span class="obj-mark">↘</span><div><small>SHIFT OBJECTIVE</small><strong id="objective">Start the drill rig</strong></div></div></div>
+      <div class="bottom-right"><div class="controls-hint"><span><kbd>W A S D</kbd> MOVE</span><span><kbd>SHIFT</kbd> SPRINT</span><span><kbd>SPACE</kbd> JUMP</span><span><kbd>E</kbd> INTERACT</span></div><button id="map-toggle" class="map-btn">⌖ <span>MAP</span></button></div>
+      <div id="toast" class="toast"></div>
+      <div id="crosshair" class="crosshair">+</div>
+      <div id="carry" class="carry hidden"><span>▰</span><b>OIL CANISTER</b><small>1 × 20 L</small></div>
+      <div id="mobile-controls" class="mobile-controls"><div id="joystick" class="joystick"><div class="joy-ring"></div><div id="joy-knob" class="joy-knob"></div></div><div class="mobile-actions"><button id="m-sprint" class="mobile-btn">⇧<small>RUN</small></button><button id="m-jump" class="mobile-btn">↑<small>JUMP</small></button><button id="m-interact" class="mobile-btn interact-btn">E<small>USE</small></button><button id="m-action" class="mobile-btn action-btn">⛭<small>DRILL</small></button></div><div id="look-area"></div></div>
+    </section>
+    <section id="modal-layer" class="modal-layer hidden"><div id="modal" class="modal glass"></div></section>
+    <div id="note" class="note hidden"></div>
+    <div id="map-overlay" class="map-overlay hidden"><div class="map-card glass"><div class="map-head"><span>FIELD SITE / PLAN 01</span><button id="map-close">×</button></div><div class="map-body"><div class="map-grid"><div class="map-facility lab-map">⌬<small>SCIENCE LAB</small></div><div class="map-facility shop-map">▤<small>OIL DEPOT</small></div><div class="map-rig">◈<small>DRILL RIG</small></div><div class="map-player">●</div><div class="map-north">N ↑</div></div><div class="map-legend"><span><i class="legend-dot gold"></i> YOU ARE HERE</span><span><i class="legend-dot blue"></i> FACILITY</span></div></div></div></div>
+    <div id="arrival" class="arrival hidden"><span>FIELD LOG <i> / </i> 001</span><strong>THE SURFACE</strong><small>Every journey starts somewhere.</small></div>
+  </main>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
